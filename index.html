@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>A Simple Page with CKEditor</title>
+        <!-- Make sure the path to CKEditor is correct. -->
+        <script src="build/ckeditor.js"></script>
+    </head>
+    <body>
+      
+            <textarea id="editor1" rows="10" cols="80">
+                This is my textarea to be replaced with CKEditor.
+            </textarea>
+
+            <button type="button" onclick="ale()">Get Data</button>
+            <script>
+                
+            
+               
+               ClassicEditor.builtinPlugins.map( plugin => {
+                   console.log(plugin.pluginName)
+               return  plugin.pluginName
+               } );
+
+                ClassicEditor.create( document.querySelector( '#editor1' ), 
+                {
+                    startupFocus : true,
+                    autoParagraph : false, 
+                    simpleUpload: {
+                        uploadUrl: `http://localhost:8000/api/v1/admin/media`,
+                        headers: {
+                        'Accept': 'application/json',
+                          Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiOWE5MDgzNTNmM2I5NTI1MDNjNjNjZGMzOGM0YTc0MjkzNGY3ZTZiYjRjY2ZkZDA0MTcxMWI5YzgyN2ZhMTg3YWY0MGU5MDY5ZjU2MWFlYTciLCJpYXQiOjE1ODg1NTExMzAsIm5iZiI6MTU4ODU1MTEzMCwiZXhwIjoxNjIwMDg3MTMwLCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.BnXmAd-rG6aqx66f-ynZNXaPmXmXZtRoTTeeSzYjpfeVjFjW-SKWug6e4_CnXaz4l3vIbmq1NjMSp0Da0dZg1OG05OFRI_NxEqT7xJlnLa4uPyyt9aKdOo5amtJcvk_dvHB2FOxISb7s8RFFQe96IAR28Ch1uC55xTiiG2Zocv-e5WuuwXfsc9HLBnn3Sd4f6NRbqo8UAYxsNWoa7w5QMlBaySWAWDcdmFv1uaYO3FS888ejylhe82KlSwSHWkCO2-jYLQOmU2pk_UV9fGN2s4w5fyE5c3UVhzN-n3ggULN3dpQTRTspXvJbk1xJtW1aox9pghpVb7cXW8NrdTepxa2BgFMVtO5_DGfqL2I-cBlBkPx5biyf5brSk2_qyx462zIaYMhN9arzM3vMxf8lB7a99Ot-aZ3_1g5aQRZPaHZEG1hPCZvgt9geF9_YS7ZyzRZwXhsVIB3XX9DwHqdDNRJBO-gK9KEywtUaH3gizt7vRAT0XVzoJ0dDb49r-Vww02vCcEaBH0XYIb2o1G4RWniw3ex3n5bsxjGTYICHSJTL9BQ25HRLxB9dSHFzZ1L2xSjzSmk85HherBmzIFwOjHY6aEfijQrVL0xG_rSQzGXEgTZtq06hJyD8G7eahQqx-WOoA2mrUpzQ4TYBn4gkNTJzcUjq9wWYJtzoNBVha7o`
+                        }
+                    }
+                } )
+		.then( editor => {
+			window.editor = editor;
+		} )
+		.catch( error => {
+			console.error( 'There was a problem initializing the editor.', error );
+        } );
+        
+        function ale(){
+                   console.log( window.editor.getData())
+                }
+
+            </script>
+    
+    </body>
+</html>
